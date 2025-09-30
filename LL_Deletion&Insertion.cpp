@@ -39,7 +39,7 @@ Node* removeHead(Node* head){
     head=head->next;
     delete temp; // freeing the memo 
     return head;
-};
+}
 
 // deleting tail
 
@@ -78,7 +78,7 @@ Node* deletek(Node* head, int k){
 }
 
 // removal of node by value
-Node* deletek(Node* head, int el){
+Node* deleteEl(Node* head, int el){
     Node* temp=head;
     if(head==NULL) return head;
     if(head->data==el){ // checking if saying remove head
@@ -100,6 +100,79 @@ Node* deletek(Node* head, int el){
     return head;
 }
 
+// insertion at head
+Node* insertHead(Node* head, int val){
+    Node* temp=new Node(val,head);
+    return temp;
+}
+
+// insertion at tail
+Node* insertionTail(Node* head,int val){
+    if(head==NULL){
+        return new Node(val);
+    }
+    Node* temp=head;
+    Node* newNode=new Node(val);
+    while(temp->next!=NULL){ // checking next of each node
+        temp=temp->next; // moving temp
+    }
+    temp->next=newNode; // linking newNode
+    return head; 
+}
+
+// insertion at desired location
+Node*insertAtK(Node* head, int val, int k){
+    if(head==NULL){
+        if(k==1){
+            return new Node(val);
+        }
+    }
+    if(k==1){
+        Node* temp=new Node(val,head);
+        return temp;
+    }
+
+    int cnt=0;
+    Node* temp=head;
+    while(temp!=NULL){
+        cnt++;
+        if(cnt==k-1){
+            Node* newNode=new Node(val); // creating new node
+            newNode->next=temp->next; // linking newNode to ahead node
+            temp->next=newNode; // linking newNode to prev node
+            break;
+        }
+        temp=temp->next;
+    }
+    return head;
+}
+
+// insertion at before value 
+Node*insertBeforeVal(Node* head, int el, int val){
+
+    if(head->data==val){
+        Node* temp=new Node(el,head);
+        return temp;
+    }
+
+    Node* temp=head;
+   
+    while(temp!=NULL){
+        if(temp->next->data==val){
+            Node* newNode=new Node(el); // creating new node
+            newNode->next=temp->next; // linking newNode to ahead node
+            temp->next=newNode; // linking newNode to prev node
+    
+            break;
+        }
+        temp=temp->next;
+    }
+    
+        return head;
+    
+}
+
+
 // printing linked list
 void print(Node* head){
     Node* temp=head;
@@ -119,6 +192,10 @@ int main(){
     // print(removeTail(head));
     int k;
     cin>>k;
-    print(deletek(head,k));
+    // print(deletek(head,k));
+    // print(insertHead(head,k));
+    // print(insertionTail(head,k));
+    // print(insertAtK(head,200,k));
+    print(insertBeforeVal(head,200,k));
 }
 
