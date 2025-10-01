@@ -126,14 +126,74 @@ Node* deleteNode(Node* temp){
     delete temp; // freeing the space
 }
 
+// Insertion 
+// Insertion before head
+Node* insertionBeforeHead(Node* head, int val){
+    Node* newHead=new Node(val,head,nullptr);
+    head->back=newHead;
+    return newHead;
+}
+
+// insert before the tail
+Node* insertBeforeTail(Node* head, int val){
+    if(head->next==NULL) return insertionBeforeHead(head,val);
+    Node* tail=head; // prev <--> tail
+    // searching tail
+    while(tail->next!=NULL){
+        tail=tail->next;
+    }
+    // back of the tail
+    Node* prev=tail->back;
+    Node* newNode= new Node(val,tail,prev); // prev <-- newNode --> tail
+    prev->next=newNode; // prev --> newNode
+    tail->back=newNode; // newNode <-- tail
+    return head; // prev <--> newNode <--> tail
+}
+
+// insertion at kth Node
+Node* insertKthNode(Node* head, int k, int val){
+    Node* NodeK=head;
+    int cnt=0;
+
+    if(k==1){
+        return insertionBeforeHead(head,val);
+    }
+
+    // finding node before we have to insert
+    while(NodeK!=NULL){
+        cnt++;
+        if(cnt==k) {
+            break;
+        }
+        NodeK=NodeK->next;
+    }
+    Node* prev=NodeK->back; 
+
+    Node* newNode=new Node(val,NodeK,prev);
+    prev->next=newNode;
+    NodeK->back=newNode;
+    return head;
+}
+
+// inserting before node (never head)
+Node* insertbeforeNode(Node* node, int k, int val){
+    Node* prev=node->back; 
+    Node* newNode=new Node(val,node,prev);
+    prev->next=newNode;
+    node->back=newNode;
+}
+
 int main(){
     vector<int>nums={2,3,4,5,6,7,1,3};
     Node* head=array2DoublyLL(nums);
     // print(deleteTailDLL(head));
-    // int k;
-    // cin>>k;
+    int val;
+    cin>>val;
     // print(deletekthDLL(head,k));
-    deleteNode(head->next->next);
-    print(head);
+    // deleteNode(head->next->next);
+    // print(head);
+    // print(insertionBeforeHead(head,k));
+    //  print(insertBeforeTail(head,k));
+    print(insertKthNode(head,8,val));
     return 0;
 }
