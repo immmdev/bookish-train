@@ -65,11 +65,11 @@ Node* reverseLL(Node* head){
 // TC O(N) stck space is occupied
 Node* reveseRecursive(Node* head){
      if(head==NULL || head->next==NULL) return head;
-     Node* newHead=reveseRecursive(head->next);
-     Node* front=head->next;
-     front->next=head;
-     head->next=NULL;
-     return newHead;
+     Node* newHead=reveseRecursive(head->next); // recursion deriving base case then back tracking
+     Node* front=head->next; // finding front of old head
+     front->next=head; // reversing the link
+     head->next=NULL; // setting the head next to null as it becomes newest tail after reversing
+     return newHead; // return nw head
 }
 
 int main(){
