@@ -1,43 +1,29 @@
 #include<bits/stdc++.h>
 using namespace std;
+using namespace std;
 
-// doubly LL initiation
-class Node{
-    public:
-    int data;
-    Node* next;
-    Node* prev;
+class Node{ 
+        public:
+        int data;  
+        Node* next; 
 
-    public:
-    Node(int data1,Node* next1,Node* prev1){
-        data=data1;
-        next=next1;
-        prev=prev1;
-    }
-
-    public:
-    Node(int data1){
-        data=data1;
-        next=nullptr;
-        prev=nullptr;
-    }
+        // constructor_1; used to initialise value of an obj
+        public:
+        Node(int data1,Node* next1){
+            data=data1;
+            next=next;
+        }
+        // contructor_2
+        public:
+        Node(int data1){
+            data=data1;
+            next=nullptr;
+        }
 };
 
 
-// creating doubly linked list from an array
-Node* array2DoublyLL(vector<int>nums){
-    Node* head=new Node(nums[0]);
-    Node* prev=head;
-    int n=nums.size();
-    for(int i=1; i<n; i++){
-        Node* temp=new Node(nums[i],nullptr,prev);
-        prev->next=temp;
-        prev=temp;
-    }
-    return head;
-}
-
 // printing doubly linked list
+// TC O(2N)
 void print(Node* head){
     Node* temp=head;
     while(temp){
@@ -73,10 +59,10 @@ Node* reverseInGroupOfk(Node* head,int k){
         Node* kthNode=getKthNode(temp,k);
 
         if(kthNode==NULL) {
-            if(prevNode) prevNode->next=temp;
+            if(prevNode) prevNode->next=temp; // link the nodes if k elements group not found
             break;
         }
-        Node* nextTriHead=kthNode->next;
+        Node* nextTriHead=kthNode->next; // preserving next kthGroup head before  makiking it NULL
         kthNode->next=NULL;
         reverseLL3(temp);
         if(temp==head) {
@@ -84,7 +70,7 @@ Node* reverseInGroupOfk(Node* head,int k){
         } else {
             prevNode->next=kthNode;
         }
-        prevNode=temp;
+        prevNode=temp; // preserving prev node so that we can attach to it after reversing the next KthGroup
         temp=nextTriHead;
     }
     return head;
