@@ -45,6 +45,8 @@ Node* replicatingLLwithRandomPtrs(Node* head){
 }
 
 // optimized of CloningLL
+// TC O(3N)
+// SC O(1)
 Node* cloneLinkedList(Node* head) {
     Node* temp=head;
     // inserting copy nodes between original nodes with actual val diff addresses
